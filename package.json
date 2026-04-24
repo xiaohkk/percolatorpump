@@ -20,6 +20,7 @@
     "@solana/web3.js": "^1.98.4",
     "@supabase/supabase-js": "^2.104.0",
     "bs58": "^6.0.0",
+    "lightweight-charts": "^4",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
