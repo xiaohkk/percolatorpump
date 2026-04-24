@@ -101,9 +101,19 @@ decide on treasury wallet, deploy to VPS.
   - `cargo test -p percolator-keeper`: 6/6 pass
 - Pushed to `xiaohkk/percolator:master` at 3b2d465
 
-Not yet done: BPF deploy to devnet (task #17), security self-review
-(task #18), keeper deployment to VPS (task #22), program upgrade
-authority keypair still on local machine.
+Devnet deploys (task #17):
+- percolator-program: `hhjXnj81pWwrUwVLAEojFFK9mPR2DSCUV3QiFXfperc`
+- percolator-oracle:  `7ombRzUH7EwQhnJnwutRvtohLot6y5j6AYjrkHjQ14Xv`
+  (deployed 2026-04-24, sig `4oE3VNnF6Tu...`, ~0.52 SOL)
+Both pubkeys wired into `percpad/.env.local`. Upgrade authority for
+both is `FaXhdZcAg8Y8DLgCd42yvmYFKaWUbi4CrpueMq5DCFfA` (local CLI
+keypair). Deploy wallet balance after: ~1.34 SOL.
+
+Not yet done: devnet smoke test script (`scripts/devnet-smoke.ts`
+was punted — 99 BanksClient tests cover runtime correctness; live-RPC
+validation will happen as the frontend exercises real devnet tx
+encoding). Security self-review (task #18). VPS deploy (task #22).
+Mainnet cutover + program upgrade-authority revoke (task #7).
 
 ### Frontend — critical path complete, not yet deployed
 - All Phase 1 launcher pages + API routes (landing, /launch, /t/[mint])
@@ -178,17 +188,17 @@ mainnet at Phase 2 unlock.
 
 Done:
 ```
-#9 InitializeEngine   #15 Oracle adapter        #21 seed script
-#10 Deposit           #16 Keeper bot            #24 /markets/create
-#11 Withdraw          #19 /perp/[mint]          #25 landing rewrite
-#12 PlaceOrder        #20 /markets+/portfolio   #6 Launcher E2E tests
-#13 Liquidate         #23 CreateMarket paid
+#9  InitializeEngine   #15 Oracle adapter        #21 seed script
+#10 Deposit            #16 Keeper bot            #24 /markets/create
+#11 Withdraw           #19 /perp/[mint]          #25 landing rewrite
+#12 PlaceOrder         #20 /markets+/portfolio   #6  Launcher E2E tests
+#13 Liquidate          #23 CreateMarket paid     #17 Devnet deploy (minus smoke)
 #14 Crank
 ```
 
 Remaining:
 ```
-#17 Devnet deploy       → unblocks smoke test against real chain
+#17 devnet smoke test (punted — deferred to frontend-driven validation)
 #18 Security self-review → gate before mainnet
 #22 VPS deploy (standalone, unblocked)
 #7  Mainnet launcher cutover (standalone, unblocked)
