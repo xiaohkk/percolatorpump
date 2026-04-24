@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { getConnection } from "@/lib/solana";
 
-const THRESHOLD_SOL = 5;
+// Approach D threshold: 12 SOL covers the ~0.5 SOL program deploy + ~10.5 SOL
+// rent to seed the Day-1 top 15 meme markets. Per docs/STATE.md.
+const THRESHOLD_SOL = 12;
 const THRESHOLD_LAMPORTS = THRESHOLD_SOL * LAMPORTS_PER_SOL;
 
 // Don't cache; we want a fresh read each poll.

@@ -11,11 +11,11 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "percolatorpump",
-  description: "Launch a ...perc token on pump.fun. Perp market unlocks when Percolator deploys.",
+  description: "Leverage trading on the top Solana memes. Inverted perps seeded Day 1 with WIF, BONK, POPCAT, and more — collateralized in the token itself.",
   metadataBase: new URL("https://percolatorpump.fun"),
   openGraph: {
     title: "percolatorpump",
-    description: "Launch a ...perc token on pump.fun. Perp market unlocks when Percolator deploys.",
+    description: "Leverage trading on the top Solana memes. Inverted perps seeded Day 1 with WIF, BONK, POPCAT, and more — collateralized in the token itself.",
     url: "https://percolatorpump.fun",
     siteName: "percolatorpump",
     type: "website",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "percolatorpump",
-    description: "Launch a ...perc token on pump.fun. Perp market unlocks when Percolator deploys.",
+    description: "Leverage trading on the top Solana memes. Inverted perps seeded Day 1 with WIF, BONK, POPCAT, and more — collateralized in the token itself.",
   },
 };
 

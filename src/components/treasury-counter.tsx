@@ -102,16 +102,25 @@ export function TreasuryCounter() {
       </div>
 
       {unlocked ? (
-        <div className="text-sm text-emerald-400 font-medium">
-          DEPLOY UNLOCKED - shipping now
+        <div className="space-y-1">
+          <div className="text-sm text-emerald-400 font-medium">
+            DEPLOYING - seeding WIF, BONK, POPCAT, ...
+          </div>
+          <div className="text-xs text-emerald-500/70">
+            Mainnet Percolator deploy + Day 1 seed of the top 15 Solana memes
+            is shipping now.
+          </div>
         </div>
       ) : (
         <div className="space-y-1">
           <div className="text-sm text-zinc-400">
-            Mainnet Percolator deploy unlocks at {threshold.toFixed(2)} SOL.
+            Mainnet Percolator deploy + Day 1 seed of the top 15 Solana memes
+            unlocks at {threshold.toFixed(2)} SOL.
           </div>
           <div className="text-xs text-zinc-600">
-            Every launch adds 0.03 SOL.
+            Fueled by creator rewards on our own{" "}
+            <span className="text-zinc-400">...perc</span> token. Post-deploy,
+            the first 10 paid listings are 0.5 SOL; after that, 1.5 SOL each.
           </div>
         </div>
       )}

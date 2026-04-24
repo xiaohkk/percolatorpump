@@ -1,0 +1,162 @@
+{
+  "_notes": "Approach D seed list. Every entry below is a placeholder until verified on solscan. Do NOT run scripts/seed-top-memes.ts --live against mainnet with verified=false anywhere in this file. The 11111111-pubkey is a valid base58 sentinel — the seed script refuses --live if it encounters it, and dry-run prints a TBD warning per entry.",
+  "_risk_defaults_description": "Shared risk params for the 15 Approach-D memes. Memes are volatile — MM 5% / IM 10% gives 10x leverage, liquidation fee 1% capped at 1 SOL equivalent. min_initial_deposit 1000 of the token's native unit (e.g. 0.001 of a 6-decimal token) gates dust accounts.",
+  "risk_defaults": {
+    "maintenance_margin_bps": 500,
+    "initial_margin_bps": 1000,
+    "trading_fee_bps": 30,
+    "max_accounts": 256,
+    "max_crank_staleness_slots": 1000000,
+    "liquidation_fee_bps": 100,
+    "liquidation_fee_cap": "1000000000",
+    "min_liquidation_abs": "1000",
+    "min_initial_deposit": "1000",
+    "min_nonzero_mm_req": "0",
+    "min_nonzero_im_req": "0",
+    "insurance_floor": "0",
+    "h_min": 1000,
+    "h_max": 100000,
+    "resolve_price_deviation_bps": 1000,
+    "max_accrual_dt_slots": 1000,
+    "max_abs_funding_e9_per_slot": 21,
+    "min_funding_lifetime_slots": 1000000,
+    "max_active_positions_per_side": 128
+  },
+  "tokens": [
+    {
+      "symbol": "TRUMP",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "MeteoraDlmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Meteora DLMM pool on solscan"
+    },
+    {
+      "symbol": "PENGU",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "BONK",
+      "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": true,
+      "tbd_note": "Mint preliminarily verified — BONK is one of the most widely-indexed SPL mints on Solana. Pool TBD verify on solscan (verified=true here only because ops team has confirmed the mint; the seed script warns on pool sentinel regardless)."
+    },
+    {
+      "symbol": "WIF",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan (Orca pool is a fallback source, not seeded here)"
+    },
+    {
+      "symbol": "BOME",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "FARTCOIN",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "MeteoraDlmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Meteora DLMM pool on solscan"
+    },
+    {
+      "symbol": "PNUT",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "MOODENG",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "MELANIA",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "MeteoraDlmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Meteora DLMM pool on solscan"
+    },
+    {
+      "symbol": "POPCAT",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "PIPPIN",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "BIRB",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "BAN",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "MEW",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "RaydiumCpmm",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + Raydium CPMM pool on solscan"
+    },
+    {
+      "symbol": "USELESS",
+      "mint": "11111111111111111111111111111111",
+      "oracle_source": "PumpSwap",
+      "pool": "11111111111111111111111111111111",
+      "init_oracle_price": 1,
+      "verified": false,
+      "tbd_note": "TBD verify mint + PumpSwap pool on solscan"
+    }
+  ]
+}
