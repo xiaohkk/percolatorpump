@@ -199,10 +199,31 @@ Done:
 Remaining:
 ```
 #17 devnet smoke test (punted — deferred to frontend-driven validation)
-#18 Security self-review → gate before mainnet
+#18 Security self-review — first pass done 2026-04-24; one open item
+    (oracle slot-delta staleness) deferred to its own session
 #22 VPS deploy (standalone, unblocked)
 #7  Mainnet launcher cutover (standalone, unblocked)
 ```
+
+### Security review state (task #18)
+
+First pass landed 2026-04-24. Findings fixed in this pass:
+- Crank bounty now clamps against `insurance_floor` (Known Limits #2
+  closed). Regression test added.
+
+Matrix refreshed in `percolator/program/SECURITY.md` to cover the 9th
+handler (`CreateMarket`, task #23). New negative test
+`tests/liquidate.rs::stale_oracle_rejected` added to satisfy the
+prompt's "stale_oracle_rejected (PlaceOrder + Liquidate)" requirement.
+
+Deferred to a future session:
+- **Oracle slot-delta staleness (high priority).** PlaceOrder +
+  Liquidate currently bounds-check price (0 / > MAX) but don't verify
+  `current_slot - oracle.last_update_slot <= STALE_SLOTS`. Closing
+  this requires the program crate to deserialize `percolator_oracle::
+  state::Feed` in place of the bare-u64 read, and every test harness's
+  `set_oracle_price` helper to write a full Feed layout. Estimated
+  one dedicated session. Mainnet gate: must close before cutover.
 
 ## Conventions for executing a prompt
 
