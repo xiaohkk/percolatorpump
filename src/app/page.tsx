@@ -131,7 +131,12 @@ export default function Home() {
               <span className="text-zinc-600 select-none">-</span>
               <span>
                 Any mint not seeded can be added via{" "}
-                <span className="text-zinc-200">/markets/create</span>{" "}
+                <Link
+                  href="/markets/create"
+                  className="text-zinc-200 underline underline-offset-4 hover:text-white transition-colors"
+                >
+                  /markets/create
+                </Link>{" "}
                 — first 10 listings 0.5 SOL, then 1.5 SOL
               </span>
             </li>
@@ -160,18 +165,12 @@ export default function Home() {
           >
             Percolator (Toly)
           </a>
-          {PHASE_2_LIVE ? (
-            <Link
-              href="/markets/create"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Add a market
-            </Link>
-          ) : (
-            <span className="text-zinc-700 cursor-not-allowed" aria-disabled>
-              Add a market (unlocks with Phase 2)
-            </span>
-          )}
+          <Link
+            href="/markets/create"
+            className="hover:text-zinc-300 transition-colors"
+          >
+            Add a market
+          </Link>
           <a href="#" className="hover:text-zinc-300 transition-colors">
             x
           </a>
