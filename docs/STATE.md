@@ -1,6 +1,6 @@
 # Project State (read this first)
 
-Last updated: 2026-04-21
+Last updated: 2026-04-24
 
 This doc is the single source of truth for anyone picking up the project
 cold (including a fresh Claude session). Read top-to-bottom before executing
@@ -79,18 +79,50 @@ Domain (not yet pointed): percolatorpump.fun
 Needs you to: create Supabase project, apply migrations, seed vanity pool,
 decide on treasury wallet, deploy to VPS.
 
-### Phase 2 program — skeleton only
-- Cargo workspace, parent lib untouched
-- PercolatorInstruction enum (6 variants, Borsh codec)
-- SlabHeader + account sizing
-- `CreateSlab` instruction (admin path, no fee, origin=0)
-- Compact MAX_ACCOUNTS=256 feature (slab ~100 KB, ~0.70 SOL rent)
-- BPF binary builds at 62 KiB
-- 7 unit + 2 integration tests passing
+### Phase 2 program — critical path complete, not yet deployed
+- Cargo workspace (`.`, `program`, `oracle`, `keeper`), parent lib
+  add-only (new `compact` MAX_ACCOUNTS=256 cfg branch only)
+- Compact slab ~100 KB, ~0.70 SOL rent
+- Program ID ground to end in `...perc`:
+  `hhjXnj81pWwrUwVLAEojFFK9mPR2DSCUV3QiFXfperc`
+- PercolatorInstruction: 9 variants with full Borsh codec
+  (CreateSlab, InitializeEngine, Deposit, Withdraw, PlaceOrder,
+  Liquidate, Crank, BootstrapLp, CreateMarket). All implemented,
+  none stubbed.
+- SlabHeader 104 bytes with initialized/vault_bump/origin fields
+- Oracle adapter program written + tested
+- Keeper bot crate written + tested (funding/GC/ADL/liquidation)
+- Tests (on 2026-04-24):
+  - `cargo test -p percolator-program`: 78/78 pass (10 lib + 68
+    integration across 8 suites — create_slab, initialize_engine,
+    deposit, withdraw, place_order, liquidate, crank, create_market,
+    engine_layout)
+  - `cargo test -p percolator-oracle`: 15/15 pass
+  - `cargo test -p percolator-keeper`: 6/6 pass
+- Pushed to `xiaohkk/percolator:master` at 3b2d465
 
-Still stubbed (return NotImplemented): `InitializeEngine`, `Deposit`,
-`Withdraw`, `PlaceOrder`, `Liquidate`, `Crank`. Paid `CreateMarket` not
-written yet. Oracle, keeper, frontend perp UI not written yet.
+Not yet done: BPF deploy to devnet (task #17), security self-review
+(task #18), keeper deployment to VPS (task #22), program upgrade
+authority keypair still on local machine.
+
+### Frontend — critical path complete, not yet deployed
+- All Phase 1 launcher pages + API routes (landing, /launch, /t/[mint])
+- Phase 2 UI fully written: /markets (browse), /markets/create (paid
+  listing tier), /perp/[mint] (trading), /portfolio (positions)
+- Seed tokens config (`config/seed-tokens.json`) with DEX routing
+- Scripts: import-vanity-pool, seed-top-memes, claim-creator-rewards,
+  smoke-devnet-launch
+- Percolator on-chain client (`src/lib/percolator/`): Borsh mirrors
+  of program instructions + slab/engine decoders
+- Ops runbook at `docs/OPERATIONS.md`
+- 53 vitest unit tests pass; Playwright specs for landing, launch,
+  markets, markets-create, perp, share-page
+- Supabase dev project `fgkltlgdvpeeqaqziwvc` live, vanity pool seeded
+- Devnet treasury funded at
+  `EM7mXeCaUvj4yJ6zmEtgDfrUUSiK2vuyiwvijNpayktn` (~1 SOL)
+- Pushed to `xiaohkk/percolatorpump:main` at 7e32b4c
+
+Not yet done: VPS deploy (task #22), mainnet launcher cutover (task #7).
 
 ## Approach D seed tokens (top 15 by 24h volume)
 
@@ -134,7 +166,7 @@ mainnet at Phase 2 unlock.
 | Frontend brand | "percolatorpump" |
 | Local repo dir | percpad/ (kept short for typing) |
 | Program crate | percolator-program |
-| Program ID | TBD, ground to end in "perc" at task #17 |
+| Program ID | `hhjXnj81pWwrUwVLAEojFFK9mPR2DSCUV3QiFXfperc` (ground, not yet deployed) |
 
 ## Writing style preferences
 
@@ -144,24 +176,22 @@ mainnet at Phase 2 unlock.
 
 ## Critical path
 
+Done:
 ```
-#9 InitializeEngine → #10 Deposit → #11 Withdraw
-                                  → #12 PlaceOrder → #13 Liquidate → #14 Crank → #17 devnet deploy
-                                  |
-                             #15 Oracle (parallel, 4 sources)
-                                  |
-                             #23 CreateMarket paid (parallel)
-                                  |
-                             #18 Security (after #9-#14, #23)
-                                  |
-                             #16 Keeper (after #14, #15)
-                                  |
-                             #19 /perp/[mint] → #20 /markets+/portfolio → #24 /markets/create → #21 seed script → #25 landing rewrite
+#9 InitializeEngine   #15 Oracle adapter        #21 seed script
+#10 Deposit           #16 Keeper bot            #24 /markets/create
+#11 Withdraw          #19 /perp/[mint]          #25 landing rewrite
+#12 PlaceOrder        #20 /markets+/portfolio   #6 Launcher E2E tests
+#13 Liquidate         #23 CreateMarket paid
+#14 Crank
+```
 
-Standalone (unblocked, parallel):
-  #6 Launcher E2E tests
-  #7 Mainnet launcher cutover
-  #22 VPS deploy
+Remaining:
+```
+#17 Devnet deploy       → unblocks smoke test against real chain
+#18 Security self-review → gate before mainnet
+#22 VPS deploy (standalone, unblocked)
+#7  Mainnet launcher cutover (standalone, unblocked)
 ```
 
 ## Conventions for executing a prompt
